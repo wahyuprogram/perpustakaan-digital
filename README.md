@@ -35,20 +35,7 @@ Aplikasi Manajemen Perpustakaan Digital berbasis web yang dirancang untuk memper
 
 ---
 
-## 📸 Tampilan Aplikasi
-
-| Dashboard Admin | Katalog Buku |
-| :--- | :--- |
-| ![Dashboard](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/20a1a5d7-8a47-46bf-987e-a16d66d9a8bf" />
-) | ![Katalog](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/7bc8c4c9-49d6-477a-9a0c-130f0a3a4479" />
-) |
-
-| Detail Konfirmasi & Denda | Generate Laporan |
-| :--- | :--- |
-| ![Modal Denda](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/4d484bed-ed42-45d2-bea7-445885c5faef" />
-) | ![Laporan](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/ded29cd9-0d5f-4906-b249-0a128a641726" />
-) |
-
+📸 Tampilan AplikasiDashboard AdminKatalog Buku<img src="https://github.com/user-attachments/assets/20a1a5d7-8a47-46bf-987e-a16d66d9a8bf" width="100%" alt="Dashboard Admin"><img src="https://github.com/user-attachments/assets/7bc8c4c9-49d6-477a-9a0c-130f0a3a4479" width="100%" alt="Katalog Buku">Detail Konfirmasi & DendaGenerate Laporan<img src="https://github.com/user-attachments/assets/4d484bed-ed42-45d2-bea7-445885c5faef" width="100%" alt="Detail Konfirmasi"><img src="https://github.com/user-attachments/assets/ded29cd9-0d5f-4906-b249-0a128a641726" width="100%" alt="Generate Laporan">
 ---
 
 ## 🚀 Cara Instalasi
@@ -88,9 +75,9 @@ Aplikasi Manajemen Perpustakaan Digital berbasis web yang dirancang untuk memper
 
 | Role | Username | Password |
 | :--- | :--- | :--- |
-| **Administrator** | `admin` | `password` |
-| **Petugas** | `petugas` | `password` |
-| **User** | `user` | `password` |
+| **Administrator** | `admin` | `123456` |
+| **Petugas** | `petugas` | `123456` |
+| **User** | `user` | `123456` |
 
 ---
 
