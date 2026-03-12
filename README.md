@@ -35,23 +35,37 @@ Aplikasi Manajemen Perpustakaan Digital berbasis web yang dirancang untuk memper
 
 ---
 
-📸 Tampilan Aplikasi
+## 📸 Tampilan Aplikasi
 
-Dashboard Admin
+### 🖥️ Dashboard Utama
+Sistem navigasi terpusat untuk mempermudah akses ke seluruh modul aplikasi sesuai dengan hak akses masing-masing pengguna.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/20a1a5d7-8a47-46bf-987e-a16d66d9a8bf" width="100%" alt="Dashboard Admin">
+</p>
 
-<img src="https://github.com/user-attachments/assets/20a1a5d7-8a47-46bf-987e-a16d66d9a8bf" width="100%" alt="Dashboard Admin">
+---
 
-Lihat Daftar Buku Pinjam
+### 📖 Katalog & Daftar Buku Pinjam
+Halaman pencarian dan daftar koleksi buku yang sedang dipinjam oleh user, lengkap dengan status peminjaman secara real-time.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7bc8c4c9-49d6-477a-9a0c-130f0a3a4479" width="100%" alt="Katalog Buku">
+</p>
 
-<img src="https://github.com/user-attachments/assets/7bc8c4c9-49d6-477a-9a0c-130f0a3a4479" width="100%" alt="Katalog Buku">
+---
 
-Detail Konfirmasi & Denda
+### 💰 Detail Konfirmasi & Kalkulasi Denda
+Modul petugas untuk memproses pengembalian buku dengan fitur kalkulator denda otomatis berdasarkan durasi keterlambatan.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e477819f-c062-4fea-a2f7-158d6882caa3" width="100%" alt="Detail Konfirmasi">
+</p>
 
-<img width="934" height="385" alt="image" src="https://github.com/user-attachments/assets/e477819f-c062-4fea-a2f7-158d6882caa3" />
+---
 
-Generate Laporan
-
-<img src="https://github.com/user-attachments/assets/ded29cd9-0d5f-4906-b249-0a128a641726" width="100%" alt="Generate Laporan">
+### 📊 Generate Laporan & Rekapan
+Fitur laporan manajerial yang mendukung filter rentang tanggal dan rangkuman data transaksi serta total denda bulanan.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ded29cd9-0d5f-4906-b249-0a128a641726" width="100%" alt="Generate Laporan">
+</p>
 
 
 
