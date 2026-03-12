@@ -19,10 +19,10 @@ class UlasanController extends Controller
         return view('ulasan.index', compact('ulasan'));
     }
 
-    // Halaman form untuk menulis ulasan baru
+    // Halaman form untuk menulis ulasan baru (opsional jika lewat katalog)
     public function create()
     {
-        $buku = Buku::all(); // Menampilkan semua buku untuk dipilih
+        $buku = Buku::all(); 
         return view('ulasan.create', compact('buku'));
     }
 
@@ -38,11 +38,12 @@ class UlasanController extends Controller
         $userID = Auth::user()->UserID;
         $bukuID = $request->BukuID;
 
-        // Cek apakah user sudah pernah mengulas buku ini (agar tidak dobel/spam)
+        // Cek apakah user sudah pernah mengulas buku ini
         $cek_ulasan = UlasanBuku::where('UserID', $userID)->where('BukuID', $bukuID)->first();
 
         if ($cek_ulasan) {
-            return redirect('/ulasan')->with('error', 'Anda sudah pernah memberikan ulasan untuk buku ini!');
+            // MENGGUNAKAN back() AGAR TETAP DI HALAMAN DETAIL BUKU
+            return back()->with('error', 'Anda sudah pernah memberikan ulasan untuk buku ini!');
         }
 
         UlasanBuku::create([
@@ -52,6 +53,33 @@ class UlasanController extends Controller
             'Rating' => $request->Rating,
         ]);
 
-        return redirect('/ulasan')->with('success', 'Terima kasih! Ulasan Anda berhasil dikirim.');
+        // MENGGUNAKAN back() AGAR TETAP DI HALAMAN DETAIL BUKU
+        return back()->with('success', 'Terima kasih! Ulasan Anda berhasil dikirim.');
+    }
+
+    // ==========================================
+    // BAGIAN KHUSUS ADMIN & PETUGAS
+    // ==========================================
+
+    // Menampilkan semua ulasan dari semua user untuk dibalas
+    public function adminIndex()
+    {
+        $ulasan = UlasanBuku::with(['user', 'buku'])->orderBy('created_at', 'desc')->get();
+        return view('ulasan.admin', compact('ulasan'));
+    }
+
+    // Menyimpan balasan dari admin
+    public function balas(Request $request, $id)
+    {
+        $request->validate([
+            'Balasan' => 'required'
+        ]);
+
+        $ulasan = UlasanBuku::findOrFail($id);
+        $ulasan->update([
+            'Balasan' => $request->Balasan
+        ]);
+
+        return back()->with('success', 'Balasan berhasil dikirim!');
     }
 }

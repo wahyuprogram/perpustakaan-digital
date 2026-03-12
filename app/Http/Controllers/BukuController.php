@@ -29,6 +29,7 @@ class BukuController extends Controller
             'Penulis' => 'required',
             'Penerbit' => 'required',
             'TahunTerbit' => 'required|numeric',
+            'Stok' => 'required|numeric|min:0',
         ]);
 
         // Simpan data buku
@@ -56,6 +57,7 @@ class BukuController extends Controller
             'Penulis' => 'required',
             'Penerbit' => 'required',
             'TahunTerbit' => 'required|numeric',
+            'Stok' => 'required|numeric|min:0',
         ]);
 
         $buku = Buku::findOrFail($id);

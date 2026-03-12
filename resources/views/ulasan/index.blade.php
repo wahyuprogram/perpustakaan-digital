@@ -35,8 +35,6 @@
             @if(session('success')) <div class="alert-success">{{ session('success') }}</div> @endif
             @if(session('error')) <div class="alert-error">{{ session('error') }}</div> @endif
             
-            <a href="{{ url('/ulasan/create') }}" class="btn-tambah">+ Tulis Ulasan Baru</a>
-            
             <div class="ulasan-list">
                 @forelse($ulasan as $u)
                     <div class="ulasan-card">

@@ -8,7 +8,7 @@
         body { font-family: 'Poppins', sans-serif; background-color: #F4F1EA; margin: 0; color: #4A3F35; }
         .navbar { background-color: #6B8E23; padding: 15px 30px; display: flex; justify-content: space-between; color: white; }
         .navbar a { color: white; text-decoration: none; font-weight: 600; }
-        .container { padding: 40px 30px; max-width: 1000px; margin: auto; }
+        .container { padding: 40px 30px; max-width: 1100px; margin: auto; } /* Sedikit dilebarkan untuk kolom alamat */
         .card { background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .btn-tambah { background-color: #8B5E3C; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 600;}
         table { width: 100%; border-collapse: collapse; }
@@ -44,7 +44,7 @@
                         <th>Nama Lengkap</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Role / Hak Akses</th>
+                        <th width="25%">Alamat</th> <th>Role / Hak Akses</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -55,7 +55,7 @@
                             <td>{{ $u->NamaLengkap }}</td>
                             <td>{{ $u->Username }}</td>
                             <td>{{ $u->Email }}</td>
-                            <td>
+                            <td><small>{{ $u->Alamat }}</small></td> <td>
                                 @if($u->role == 'administrator')
                                     <span class="badge bg-admin">Admin</span>
                                 @elseif($u->role == 'petugas')

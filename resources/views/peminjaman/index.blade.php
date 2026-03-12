@@ -20,7 +20,14 @@
         .bg-kembali { background-color: #A3B18A; color: white; }
         .bg-ditolak { background-color: #4A3F35; color: white; }
         
+        /* Desain Tombol Aksi */
+        .btn-batal { background-color: #E8A09A; color: white; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Poppins'; font-size: 12px; font-weight: 600; transition: 0.3s;}
+        .btn-batal:hover { background-color: #D68A84; }
+        .btn-ulas { background-color: #6B8E23; color: white; padding: 6px 12px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: 600; transition: 0.3s;}
+        .btn-ulas:hover { background-color: #55721c; }
+
         .alert-success { background-color: #A3B18A; color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; }
+        .alert-error { background-color: #E8A09A; color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -32,6 +39,7 @@
         <div class="card">
             <h2 style="margin-top: 0;">Pantau Peminjaman Buku Anda</h2>
             @if(session('success')) <div class="alert-success">{{ session('success') }}</div> @endif
+            @if(session('error')) <div class="alert-error">{{ session('error') }}</div> @endif
             
             <p style="color: #666; font-size: 14px;">Jika buku masih "Sedang Dipinjam", serahkan buku fisik kepada Petugas untuk dikonfirmasi pengembaliannya.</p>
 
@@ -43,10 +51,26 @@
                         <th>Tanggal Pinjam</th>
                         <th>Tenggat Waktu</th>
                         <th>Status</th>
+                        <th>Denda (Rp)</th> <th>Aksi</th> 
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($peminjaman as $key => $p)
+                        @php
+                            $dendaTampil = 0;
+                            if ($p->StatusPeminjaman == 'Dikembalikan') {
+                                // Jika sudah dikembalikan, ambil data denda dari Database
+                                $dendaTampil = $p->Denda;
+                            } elseif ($p->StatusPeminjaman == 'Dipinjam') {
+                                // Jika masih dipinjam, hitung estimasi denda hari ini
+                                $tenggat = \Carbon\Carbon::parse($p->TanggalPengembalian)->timezone('Asia/Jakarta')->startOfDay();
+                                $hariIni = \Carbon\Carbon::now()->timezone('Asia/Jakarta')->startOfDay();
+                                if ($hariIni->greaterThan($tenggat)) {
+                                    $dendaTampil = $hariIni->diffInDays($tenggat) * 1000;
+                                }
+                            }
+                        @endphp
+
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td><strong>{{ $p->buku->Judul }}</strong><br><small>{{ $p->buku->Penulis }}</small></td>
@@ -63,9 +87,31 @@
                                     <span class="badge bg-ditolak">Ditolak</span>
                                 @endif
                             </td>
+                            
+                            <td>
+                                @if($dendaTampil > 0)
+                                    <strong style="color: #E8A09A;">Rp {{ number_format($dendaTampil, 0, ',', '.') }}</strong>
+                                @else
+                                    <span style="color: #A3B18A;">Rp 0</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($p->StatusPeminjaman == 'Menunggu')
+                                    <form action="{{ url('/peminjaman/'.$p->PeminjamanID.'/batal') }}" method="POST" onsubmit="return confirm('Yakin ingin membatalkan pengajuan pinjam ini?');" style="margin: 0;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-batal">Batal Pinjam</button>
+                                    </form>
+                                @elseif($p->StatusPeminjaman == 'Dikembalikan')
+                                    <a href="{{ url('/katalog/'.$p->buku->BukuID) }}" class="btn-ulas">Beri Ulasan</a>
+                                @else
+                                    <span style="color: #ccc;">-</span>
+                                @endif
+                            </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" style="text-align: center; color: #888;">Anda belum meminjam buku apapun.</td></tr>
+                        <tr><td colspan="7" style="text-align: center; color: #888;">Anda belum meminjam buku apapun.</td></tr>
                     @endforelse
                 </tbody>
             </table>

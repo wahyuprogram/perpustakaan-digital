@@ -14,8 +14,10 @@
         @media(max-width: 768px) { .layout-grid { grid-template-columns: 1fr; } }
         
         .card { background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .btn-pinjam { width: 100%; padding: 12px; background-color: #8B5E3C; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
-        .btn-koleksi { width: 100%; padding: 12px; background-color: #DCD7C9; color: #4A3F35; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .btn-pinjam { width: 100%; padding: 12px; background-color: #8B5E3C; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 10px; transition: 0.3s;}
+        .btn-pinjam:hover { background-color: #6C472B; }
+        .btn-koleksi { width: 100%; padding: 12px; background-color: #DCD7C9; color: #4A3F35; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s;}
+        .btn-koleksi:hover { background-color: #C1BCAE; }
         
         .ulasan-box { background-color: #FAFAFA; border: 1px solid #EFEFEF; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
         .bintang { color: #FFD700; font-size: 16px; }
@@ -27,7 +29,7 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="{{ url('/katalog') }}">⬅ Kembali ke Katalog</a>
+        <a href="{{ url('/dashboard') }}">⬅ Kembali</a>
         <span>Detail Buku</span>
     </div>
     
@@ -37,30 +39,52 @@
 
         <div class="layout-grid">
             <div class="card">
-                <h1 style="color: #6B8E23; margin-top: 0; font-size: 24px;">{{ $buku->Judul }}</h1>
-                <p><strong>Penulis:</strong> {{ $buku->Penulis }}</p>
-                <p><strong>Penerbit:</strong> {{ $buku->Penerbit }}</p>
-                <p><strong>Tahun Terbit:</strong> {{ $buku->TahunTerbit }}</p>
-                <p><strong>Kategori:</strong> 
-                    @foreach($buku->kategori as $kat)
-                        <span style="background: #DCD7C9; padding: 3px 8px; border-radius: 5px; font-size: 12px;">{{ $kat->NamaKategori }}</span>
-                    @endforeach
-                </p>
+    <h1 style="color: #6B8E23; margin-top: 0; font-size: 24px;">{{ $buku->Judul }}</h1>
+    <p><strong>Penulis:</strong> {{ $buku->Penulis }}</p>
+    <p><strong>Penerbit:</strong> {{ $buku->Penerbit }}</p>
+    <p><strong>Tahun Terbit:</strong> {{ $buku->TahunTerbit }}</p>
+    <p><strong>Kategori:</strong> 
+        @foreach($buku->kategori as $kat)
+            <span style="background: #DCD7C9; padding: 3px 8px; border-radius: 5px; font-size: 12px;">{{ $kat->NamaKategori }}</span>
+        @endforeach
+    </p>
+    
+    <p><strong>Stok Tersedia:</strong> 
+        @if($buku->Stok > 0)
+            <span style="color: #6B8E23; font-weight: 600; font-size: 18px;">{{ $buku->Stok }} Buku</span>
+        @else
+            <span style="color: #E8A09A; font-weight: 600; font-size: 18px;">Habis</span>
+        @endif
+    </p>
 
-                <hr style="border: 0; border-top: 1px solid #EFEFEF; margin: 20px 0;">
+    <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-left: 5px solid #ffecb5; border-radius: 4px;">
+    <p style="margin: 0; font-size: 14px; color: #856404;">
+        ⚠️ <strong>Penting:</strong> Waktu peminjaman maksimal <strong>7 hari</strong>. 
+        Keterlambatan pengembalian akan dikenakan denda.
+    </p>
+</div>
 
-                <form action="{{ url('/peminjaman') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="BukuID" value="{{ $buku->BukuID }}">
-                    <button type="submit" class="btn-pinjam">📖 Ajukan Peminjaman</button>
-                </form>
+    <hr style="border: 0; border-top: 1px solid #EFEFEF; margin: 20px 0;">
 
-                <form action="{{ url('/koleksi') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="BukuID" value="{{ $buku->BukuID }}">
-                    <button type="submit" class="btn-koleksi">⭐ Tambah ke Koleksi Pribadi</button>
-                </form>
-            </div>
+    @if($buku->Stok > 0)
+        <form action="{{ url('/peminjaman') }}" method="POST">
+            @csrf
+            <input type="hidden" name="BukuID" value="{{ $buku->BukuID }}">
+            
+            
+
+            <button type="submit" class="btn-pinjam">📖 Ajukan Peminjaman</button>
+        </form>
+    @else
+        <button type="button" class="btn-pinjam" style="background-color: #ccc; cursor: not-allowed; color: #666;" disabled>🚫 Stok Buku Sedang Kosong</button>
+    @endif
+
+    <form action="{{ url('/koleksi') }}" method="POST">
+        @csrf
+        <input type="hidden" name="BukuID" value="{{ $buku->BukuID }}">
+        <button type="submit" class="btn-koleksi">⭐ Tambah ke Koleksi Pribadi</button>
+    </form>
+</div>
 
             <div class="card">
                 <h2 style="margin-top: 0; font-size: 20px;">Ulasan Pembaca</h2>
@@ -75,7 +99,14 @@
                                 @endfor
                             </div>
                             <p style="margin: 5px 0 0 0; font-size: 14px; font-style: italic;">"{{ $u->Ulasan }}"</p>
-                        </div>
+                            
+                            @if($u->Balasan)
+                                <div style="background-color: #EFEFEF; padding: 10px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #6B8E23;">
+                                    <small style="font-weight: 600; color: #6B8E23;">Balasan Petugas:</small>
+                                    <p style="margin: 5px 0 0 0; font-size: 13px;">{{ $u->Balasan }}</p>
+                                </div>
+                            @endif
+                            </div>
                     @empty
                         <p style="color: #888; font-size: 14px;">Belum ada ulasan. Jadilah yang pertama!</p>
                     @endforelse

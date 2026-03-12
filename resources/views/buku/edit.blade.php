@@ -46,6 +46,10 @@
                     <label>Tahun Terbit</label>
                     <input type="number" name="TahunTerbit" value="{{ $buku->TahunTerbit }}" required min="1000" max="2099">
                 </div>
+                <div class="form-group">
+                    <label>Stok Buku</label>
+                    <input type="number" name="Stok" value="{{ $buku->Stok }}" required min="0">
+                </div>
                 
                 <div class="form-group">
                     <label>Pilih Kategori (Bisa lebih dari satu)</label>

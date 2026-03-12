@@ -18,6 +18,7 @@ class Peminjaman extends Model
         'TanggalPeminjaman',
         'TanggalPengembalian',
         'StatusPeminjaman',
+        'Denda',
     ];
 
     // Relasi ke tabel User

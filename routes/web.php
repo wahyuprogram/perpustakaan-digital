@@ -63,11 +63,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/laporan', [App\Http\Controllers\LaporanController::class, 'index']);
         Route::get('/laporan/cetak', [App\Http\Controllers\LaporanController::class, 'cetak']);
 
-        // RUTE KONFIRMASI PEMINJAMAN (Baru Ditambahkan)
+        // RUTE KONFIRMASI PEMINJAMAN
         Route::get('/konfirmasi', [App\Http\Controllers\KonfirmasiController::class, 'index']);
+        Route::get('/konfirmasi/{id}', [App\Http\Controllers\KonfirmasiController::class, 'show']); // <--- TAMBAHKAN INI
         Route::post('/konfirmasi/{id}/setujui', [App\Http\Controllers\KonfirmasiController::class, 'setujui']);
         Route::post('/konfirmasi/{id}/tolak', [App\Http\Controllers\KonfirmasiController::class, 'tolak']);
         Route::post('/konfirmasi/{id}/kembalikan', [App\Http\Controllers\KonfirmasiController::class, 'kembalikan']);
+        
+        // RUTE KELOLA ULASAN (UNTUK ADMIN/PETUGAS)
+        Route::get('/admin/ulasan', [App\Http\Controllers\UlasanController::class, 'adminIndex']);
+        Route::post('/admin/ulasan/{id}/balas', [App\Http\Controllers\UlasanController::class, 'balas']);
     });
 
     // =======================================================
@@ -79,10 +84,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/katalog', [App\Http\Controllers\KatalogController::class, 'index']);
         Route::get('/katalog/{id}', [App\Http\Controllers\KatalogController::class, 'show']);
 
-        // Rute Peminjaman (Tombol pinjam dari katalog akan lari ke sini)
+        // Rute Peminjaman
         Route::get('/peminjaman', [App\Http\Controllers\PeminjamanController::class, 'index']);
         Route::post('/peminjaman', [App\Http\Controllers\PeminjamanController::class, 'store']);
-        // Tombol kembalikan ditiadakan dari sisi peminjam, karena Admin yang akan proses
+        Route::delete('/peminjaman/{id}/batal', [App\Http\Controllers\PeminjamanController::class, 'batal']); // <-- TAMBAHKAN BARIS INI
 
         // Rute Koleksi Pribadi
         Route::get('/koleksi', [App\Http\Controllers\KoleksiController::class, 'index']);

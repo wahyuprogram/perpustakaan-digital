@@ -8,20 +8,22 @@
         body { font-family: 'Poppins', sans-serif; background-color: #F4F1EA; margin: 0; color: #4A3F35; }
         .navbar { background-color: #6B8E23; padding: 15px 30px; display: flex; justify-content: space-between; color: white; }
         .navbar a { color: white; text-decoration: none; font-weight: 600; }
-        .container { padding: 40px 30px; max-width: 1000px; margin: auto; }
+        .container { padding: 40px 30px; max-width: 1100px; margin: auto; }
         .card { background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         th { background-color: #DCD7C9; padding: 12px; text-align: left; }
         td { padding: 12px; border-bottom: 1px solid #EFEFEF; }
         
-        .badge-menunggu { background-color: #DCD7C9; color: #4A3F35; padding: 4px 8px; border-radius: 10px; font-size: 12px; font-weight: 600;}
-        .badge-dipinjam { background-color: #E8A09A; color: white; padding: 4px 8px; border-radius: 10px; font-size: 12px; font-weight: 600;}
+        .badge { padding: 4px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; display: inline-block;}
+        .bg-menunggu { background-color: #DCD7C9; color: #4A3F35; }
+        .bg-dipinjam { background-color: #E8A09A; color: white; }
+        .bg-kembali { background-color: #A3B18A; color: white; }
+        .bg-ditolak { background-color: #4A3F35; color: white; }
         
-        .btn-setuju { background-color: #A3B18A; color: white; padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Poppins'; font-size: 12px;}
-        .btn-tolak { background-color: #E8A09A; color: white; padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Poppins'; font-size: 12px;}
-        .btn-kembali { background-color: #6B8E23; color: white; padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Poppins'; font-size: 12px;}
+        /* Tombol Detail */
+        .btn-detail { background-color: #8B5E3C; color: white; padding: 6px 15px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: 600; transition: 0.3s; display: inline-block;}
+        .btn-detail:hover { background-color: #6C472B; }
         
-        .aksi-flex { display: flex; gap: 5px; }
         .alert-success { background-color: #A3B18A; color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; }
     </style>
 </head>
@@ -40,46 +42,51 @@
                     <tr>
                         <th>Peminjam</th>
                         <th>Buku</th>
-                        <th>Tanggal Pengajuan</th>
+                        <th>Tgl Tenggat</th>
                         <th>Status</th>
-                        <th>Aksi Petugas</th>
+                        <th>Denda (Rp)</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($peminjaman as $p)
+                        @php
+                            $dendaTampil = 0;
+                            if ($p->StatusPeminjaman == 'Dikembalikan') {
+                                $dendaTampil = $p->Denda;
+                            } elseif ($p->StatusPeminjaman == 'Dipinjam') {
+                                $tenggat = \Carbon\Carbon::parse($p->TanggalPengembalian)->startOfDay();
+                                $hariIni = \Carbon\Carbon::now()->startOfDay();
+                                if ($hariIni->greaterThan($tenggat)) {
+                                    $dendaTampil = $hariIni->diffInDays($tenggat) * 1000;
+                                }
+                            }
+                        @endphp
+
                         <tr>
                             <td><strong>{{ $p->user->NamaLengkap }}</strong><br><small>{{ $p->user->Username }}</small></td>
                             <td>{{ $p->buku->Judul }}</td>
-                            <td>{{ $p->created_at->format('d M Y') }}</td>
+                            <td>{{ in_array($p->StatusPeminjaman, ['Menunggu', 'Ditolak']) ? '-' : \Carbon\Carbon::parse($p->TanggalPengembalian)->format('d M Y') }}</td>
                             <td>
-                                @if($p->StatusPeminjaman == 'Menunggu')
-                                    <span class="badge-menunggu">Menunggu Persetujuan</span>
-                                @elseif($p->StatusPeminjaman == 'Dipinjam')
-                                    <span class="badge-dipinjam">Sedang Dipinjam</span>
+                                @if($p->StatusPeminjaman == 'Menunggu') <span class="badge bg-menunggu">Menunggu</span>
+                                @elseif($p->StatusPeminjaman == 'Dipinjam') <span class="badge bg-dipinjam">Dipinjam</span>
+                                @elseif($p->StatusPeminjaman == 'Dikembalikan') <span class="badge bg-kembali">Dikembalikan</span>
+                                @else <span class="badge bg-ditolak">Ditolak</span>
                                 @endif
                             </td>
                             <td>
-                                <div class="aksi-flex">
-                                    @if($p->StatusPeminjaman == 'Menunggu')
-                                        <form action="{{ url('/konfirmasi/'.$p->PeminjamanID.'/setujui') }}" method="POST" onsubmit="return confirm('Setujui peminjaman ini?');">
-                                            @csrf
-                                            <button type="submit" class="btn-setuju">✓ Setujui</button>
-                                        </form>
-                                        <form action="{{ url('/konfirmasi/'.$p->PeminjamanID.'/tolak') }}" method="POST" onsubmit="return confirm('Tolak peminjaman ini?');">
-                                            @csrf
-                                            <button type="submit" class="btn-tolak">✕ Tolak</button>
-                                        </form>
-                                    @elseif($p->StatusPeminjaman == 'Dipinjam')
-                                        <form action="{{ url('/konfirmasi/'.$p->PeminjamanID.'/kembalikan') }}" method="POST" onsubmit="return confirm('Konfirmasi buku sudah dikembalikan secara fisik?');">
-                                            @csrf
-                                            <button type="submit" class="btn-kembali">📚 Terima Pengembalian</button>
-                                        </form>
-                                    @endif
-                                </div>
+                                @if($dendaTampil > 0)
+                                    <strong style="color: #E8A09A;">Rp {{ number_format($dendaTampil, 0, ',', '.') }}</strong>
+                                @else
+                                    <span style="color: #A3B18A;">Rp 0</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ url('/konfirmasi/'.$p->PeminjamanID) }}" class="btn-detail">Lihat Detail</a>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" style="text-align: center; color: #888;">Tidak ada antrean peminjaman saat ini.</td></tr>
+                        <tr><td colspan="6" style="text-align: center; color: #888;">Tidak ada data peminjaman saat ini.</td></tr>
                     @endforelse
                 </tbody>
             </table>

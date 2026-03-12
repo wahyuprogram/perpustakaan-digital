@@ -17,6 +17,7 @@ class Buku extends Model
         'Penulis',
         'Penerbit',
         'TahunTerbit',
+        'Stok',
     ];
 
     // Fungsi Relasi Many-to-Many ke Kategori

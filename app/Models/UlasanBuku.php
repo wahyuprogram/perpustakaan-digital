@@ -17,6 +17,7 @@ class UlasanBuku extends Model
         'BukuID',
         'Ulasan',
         'Rating',
+        'Balasan',
     ];
 
     // Relasi ke tabel User (Siapa yang mengulas)

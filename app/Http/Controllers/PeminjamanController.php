@@ -6,7 +6,7 @@ use App\Models\Peminjaman;
 use App\Models\Buku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon; // Untuk mengatur tanggal otomatis
+use Carbon\Carbon;
 
 class PeminjamanController extends Controller
 {
@@ -25,7 +25,7 @@ class PeminjamanController extends Controller
     // Halaman form untuk meminjam buku baru
     public function create()
     {
-        $buku = Buku::all(); // Ambil semua daftar buku
+        $buku = Buku::all(); 
         return view('peminjaman.create', compact('buku'));
     }
 
@@ -36,25 +36,35 @@ class PeminjamanController extends Controller
             'BukuID' => 'required'
         ]);
 
-        // Simpan ke database dengan tanggal otomatis
+        // Keamanan Ekstra: Pastikan stok buku benar-benar masih ada
+        $buku = Buku::findOrFail($request->BukuID);
+        if ($buku->Stok <= 0) {
+            return back()->with('error', 'Maaf, stok buku ini sedang kosong dan tidak bisa dipinjam.');
+        }
+
+        // Simpan ke database dengan status Menunggu
         Peminjaman::create([
             'UserID' => Auth::user()->UserID,
             'BukuID' => $request->BukuID,
-            'TanggalPeminjaman' => Carbon::now()->toDateString(), // Hari ini
-            'TanggalPengembalian' => Carbon::now()->addDays(7)->toDateString(), // Tenggat 7 hari
+            'TanggalPeminjaman' => Carbon::now()->toDateString(), 
+            'TanggalPengembalian' => Carbon::now()->addDays(7)->toDateString(),
             'StatusPeminjaman' => 'Menunggu',
         ]);
 
-        return redirect('/peminjaman')->with('success', 'Buku berhasil dipinjam! Harap kembalikan tepat waktu.');
+        return redirect('/peminjaman')->with('success', 'Permintaan peminjaman berhasil dikirim! Silakan tunggu konfirmasi Admin.');
     }
 
-    // Proses mengembalikan buku
+    // Proses mengembalikan buku (Jika peminjam masih punya akses tombol ini)
     public function kembalikan($id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
         
         // Pastikan yang menekan tombol adalah orang yang meminjam
         if ($peminjaman->UserID == Auth::user()->UserID) {
+            
+            // Tambah stok buku kembali karena dikembalikan
+            $peminjaman->buku->increment('Stok');
+
             $peminjaman->update([
                 'StatusPeminjaman' => 'Dikembalikan'
             ]);
@@ -62,5 +72,22 @@ class PeminjamanController extends Controller
         }
 
         return redirect('/peminjaman')->with('error', 'Akses ditolak.');
+    }
+
+    // Proses membatalkan pengajuan pinjaman
+    public function batal($id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        
+        // Pastikan hanya pemiliknya yang bisa membatalkan dan statusnya masih Menunggu
+        if ($peminjaman->UserID == Auth::user()->UserID && $peminjaman->StatusPeminjaman == 'Menunggu') {
+            
+            // Hapus data pengajuan dari database (karena stok belum dikurangi, jadi aman dihapus)
+            $peminjaman->delete();
+            
+            return redirect('/peminjaman')->with('success', 'Pengajuan peminjaman berhasil dibatalkan.');
+        }
+
+        return redirect('/peminjaman')->with('error', 'Peminjaman tidak dapat dibatalkan.');
     }
 }
