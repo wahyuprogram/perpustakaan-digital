@@ -1,4 +1,4 @@
-# 📚 Perpustakaan Digital - Earth Tone Edition
+# 📚 Perpustakaan Digital
 
 [![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
@@ -39,15 +39,15 @@ Aplikasi Manajemen Perpustakaan Digital berbasis web yang dirancang untuk memper
 
 | Dashboard Admin | Katalog Buku |
 | :--- | :--- |
-| ![Dashboard]( <img width="931" height="423" alt="image" src="https://github.com/user-attachments/assets/32ebae9f-3a2b-4415-8748-74fc3c084b79" />  <img width="929" height="419" alt="image" src="https://github.com/user-attachments/assets/dd6fdbc8-ddc4-4bda-8ce6-385d18e93325" />
-
- <img width="947" height="413" alt="image" src="https://github.com/user-attachments/assets/6898b3c1-f1d4-445e-a496-b105a9d99c1c" />
-) | ![Katalog](<img width="928" height="418" alt="image" src="https://github.com/user-attachments/assets/e0400af5-c0f9-4e5a-aa52-6ba8ddfeb0f1" />
+| ![Dashboard](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/20a1a5d7-8a47-46bf-987e-a16d66d9a8bf" />
+) | ![Katalog](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/7bc8c4c9-49d6-477a-9a0c-130f0a3a4479" />
 ) |
 
 | Detail Konfirmasi & Denda | Generate Laporan |
 | :--- | :--- |
-| ![Modal Denda](https://via.placeholder.com/600x300?text=Preview+Modal+Denda) | ![Laporan](https://via.placeholder.com/600x300?text=Preview+Laporan+Filter+Tanggal) |
+| ![Modal Denda](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/4d484bed-ed42-45d2-bea7-445885c5faef" />
+) | ![Laporan](<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/ded29cd9-0d5f-4906-b249-0a128a641726" />
+) |
 
 ---
 
