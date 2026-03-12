@@ -1,59 +1,100 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 Perpustakaan Digital - Earth Tone Edition
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+[![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 
-## About Laravel
+Aplikasi Manajemen Perpustakaan Digital berbasis web yang dirancang untuk mempermudah proses pendataan buku, transaksi peminjaman, hingga pelaporan otomatis. Dibangun menggunakan **Laravel 10/11** dengan pendekatan desain **Earth Tone (Sage Green & Wood)** yang minimalis dan elegan.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Fitur Unggulan
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* **👥 Sistem Multi-Role:**
+    * **Administrator:** Kontrol penuh sistem & manajemen akun (Admin, Petugas, Peminjam).
+    * **Petugas:** Kelola buku, kategori, konfirmasi peminjaman, dan generate laporan.
+    * **Peminjam (User):** Eksplorasi katalog, manajemen koleksi pribadi, ulasan, dan pantau denda.
+* **📦 Manajemen Stok Otomatis:** Integrasi stok yang berkurang saat buku dipinjam dan bertambah otomatis saat dikembalikan.
+* **💰 Kalkulator Denda Real-Time:** Perhitungan denda otomatis (Rp 1.000/hari) berdasarkan selisih tanggal jatuh tempo.
+* **🗓️ Konfirmasi Pengembalian Fleksibel:** Fitur modal pop-up bagi petugas untuk mengatur tanggal pengembalian fisik dengan perhitungan denda instan (JavaScript).
+* **📊 Laporan Canggih:** Filter laporan berdasarkan *Date Range* (Rentang Tanggal) lengkap dengan rekapan total denda dan transaksi.
+* **💬 Interaksi Ulasan:** Sistem rating dan ulasan interaktif dengan fitur balasan dari petugas.
+* **🔒 Keamanan Sesi:** Implementasi pencegahan *back button* browser setelah logout melalui pembersihan header cache.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* **Backend:** PHP & Laravel Framework
+* **Database:** MySQL
+* **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
+* **Library:**
+    * [Carbon](https://carbon.nesbot.com/) (Date & Time manipulation)
+    * [Blade](https://laravel.com/docs/blade) (Templating Engine)
+    * [Google Fonts](https://fonts.google.com/specimen/Poppins) (Poppins)
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📸 Tampilan Aplikasi
 
-### Premium Partners
+| Dashboard Admin | Katalog Buku |
+| :--- | :--- |
+| ![Dashboard]( <img width="931" height="423" alt="image" src="https://github.com/user-attachments/assets/32ebae9f-3a2b-4415-8748-74fc3c084b79" />  <img width="929" height="419" alt="image" src="https://github.com/user-attachments/assets/dd6fdbc8-ddc4-4bda-8ce6-385d18e93325" />
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+ <img width="947" height="413" alt="image" src="https://github.com/user-attachments/assets/6898b3c1-f1d4-445e-a496-b105a9d99c1c" />
+) | ![Katalog](<img width="928" height="418" alt="image" src="https://github.com/user-attachments/assets/e0400af5-c0f9-4e5a-aa52-6ba8ddfeb0f1" />
+) |
 
-## Contributing
+| Detail Konfirmasi & Denda | Generate Laporan |
+| :--- | :--- |
+| ![Modal Denda](https://via.placeholder.com/600x300?text=Preview+Modal+Denda) | ![Laporan](https://via.placeholder.com/600x300?text=Preview+Laporan+Filter+Tanggal) |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🚀 Cara Instalasi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1.  **Clone Repository:**
+    ```bash
+    git clone [https://github.com/wahyuprogram/perpustakaan-digital.git](https://github.com/wahyuprogram/perpustakaan-digital.git)
+    cd perpustakaan-digital
+    ```
 
-## Security Vulnerabilities
+2.  **Instalasi Dependency:**
+    ```bash
+    composer install
+    npm install && npm run dev
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3.  **Konfigurasi Environment:**
+    Salin file `.env.example` menjadi `.env` dan atur koneksi database (DB_DATABASE).
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-## License
+4.  **Migrasi & Seed Database:**
+    ```bash
+    php artisan migrate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5.  **Jalankan Server:**
+    ```bash
+    php artisan serve
+    ```
+
+---
+
+## 🔑 Akun Uji Coba (Default)
+
+| Role | Username | Password |
+| :--- | :--- | :--- |
+| **Administrator** | `admin` | `password` |
+| **Petugas** | `petugas` | `password` |
+| **User** | `user` | `password` |
+
+---
+
+## 📝 Catatan Proyek
+Proyek ini dikembangkan dengan fokus pada akurasi data dan *user experience*. Fitur denda dan manajemen stok telah melalui pengujian skenario *logic testing* untuk memastikan tidak ada nilai negatif atau ketidakkonsistenan data.
+
+Dibuat dengan ❤️ oleh [Wahyu](https://github.com/wahyuprogram).
