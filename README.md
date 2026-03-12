@@ -35,8 +35,25 @@ Aplikasi Manajemen Perpustakaan Digital berbasis web yang dirancang untuk memper
 
 ---
 
-📸 Tampilan AplikasiDashboard AdminKatalog Buku<img src="https://github.com/user-attachments/assets/20a1a5d7-8a47-46bf-987e-a16d66d9a8bf" width="100%" alt="Dashboard Admin"><img src="https://github.com/user-attachments/assets/7bc8c4c9-49d6-477a-9a0c-130f0a3a4479" width="100%" alt="Katalog Buku">Detail Konfirmasi & DendaGenerate Laporan<img src="https://github.com/user-attachments/assets/4d484bed-ed42-45d2-bea7-445885c5faef" width="100%" alt="Detail Konfirmasi"><img src="https://github.com/user-attachments/assets/ded29cd9-0d5f-4906-b249-0a128a641726" width="100%" alt="Generate Laporan">
----
+📸 Tampilan Aplikasi
+
+Dashboard Admin
+
+<img src="https://github.com/user-attachments/assets/20a1a5d7-8a47-46bf-987e-a16d66d9a8bf" width="100%" alt="Dashboard Admin">
+
+Lihat Daftar Buku Pinjam
+
+<img src="https://github.com/user-attachments/assets/7bc8c4c9-49d6-477a-9a0c-130f0a3a4479" width="100%" alt="Katalog Buku">
+
+Detail Konfirmasi & Denda
+
+<img width="934" height="385" alt="image" src="https://github.com/user-attachments/assets/e477819f-c062-4fea-a2f7-158d6882caa3" />
+
+Generate Laporan
+
+<img src="https://github.com/user-attachments/assets/ded29cd9-0d5f-4906-b249-0a128a641726" width="100%" alt="Generate Laporan">
+
+
 
 ## 🚀 Cara Instalasi
 
